@@ -6,6 +6,7 @@ import { MessageCircle, Link as LinkIcon } from 'lucide-react';
 const ShareArea = ({ theme }) => {
   const optionInfo = useBuilderStore(state => state.optionInfo);
   const shareInfo = useBuilderStore(state => state.shareInfo);
+  const mainInfo = useBuilderStore(state => state.mainInfo);
 
   return (
     <FadeUp active={optionInfo.motionEffect}>

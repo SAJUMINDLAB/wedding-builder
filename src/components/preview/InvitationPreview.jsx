@@ -71,8 +71,8 @@ const InvitationPreview = () => {
 
   React.useEffect(() => {
     if (optionInfo.cinematicIntro) {
-      const timer1 = setTimeout(() => setFadeIntro(true), 2500); // 2.5초 후 페이드아웃 시작
-      const timer2 = setTimeout(() => setShowIntro(false), 3500); // 3.5초 후 DOM에서 제거
+      const timer1 = setTimeout(() => setFadeIntro(true), 3500); // 3.5초 후 페이드아웃 시작 (기존 2.5초에서 연장)
+      const timer2 = setTimeout(() => setShowIntro(false), 4500); // 4.5초 후 DOM에서 제거 (기존 3.5초에서 연장)
       return () => { clearTimeout(timer1); clearTimeout(timer2); };
     }
   }, [optionInfo.cinematicIntro]);

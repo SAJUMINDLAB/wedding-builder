@@ -32,8 +32,15 @@ const ViewerPage = () => {
 
   if (loading) {
     return (
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f9f9f9', color: '#666', zIndex: 99999 }}>
-        청첩장을 불러오는 중입니다...
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#FAFAFA', color: '#666', zIndex: 99999 }}>
+        <style>{`
+          @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+          @keyframes pulseText { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        `}</style>
+        <div style={{ width: '40px', height: '40px', border: '3px solid #f3f3f3', borderTop: '3px solid #888', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '20px' }} />
+        <div style={{ fontFamily: 'var(--font-kr-sans, sans-serif)', fontSize: '0.9rem', animation: 'pulseText 1.5s ease-in-out infinite', letterSpacing: '0.05em' }}>
+          소중한 청첩장을 불러오는 중입니다
+        </div>
       </div>
     );
   }

@@ -11,10 +11,10 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchInvitations = async () => {
       const data = await getAllInvitations();
-      const invArray = Object.keys(data).map(key => ({
-        id: key,
-        ...data[key]
-      })).reverse();
+      // 시간순(최신순) 정렬 보장
+      const invArray = Object.values(data).sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
       
       if (invArray.length > 0) {
         setSelectedInv(invArray[0]);
@@ -63,8 +63,13 @@ const AdminDashboard = () => {
 
   if (loading) {
     return (
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FAFAFA', color: '#666', zIndex: 99999 }}>
-        <p style={{ fontFamily: 'var(--font-kr-sans)' }}>데이터를 불러오는 중...</p>
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FAFAFA', color: '#666', zIndex: 99999 }}>
+        <style>{`
+          @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+          @keyframes pulseText { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        `}</style>
+        <div style={{ width: '40px', height: '40px', border: '3px solid #e0e0e0', borderTop: '3px solid #333', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '20px' }} />
+        <p style={{ fontFamily: 'var(--font-kr-sans, sans-serif)', fontSize: '0.9rem', animation: 'pulseText 1.5s ease-in-out infinite' }}>관리자 데이터를 불러오는 중...</p>
       </div>
     );
   }
