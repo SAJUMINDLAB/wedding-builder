@@ -1,19 +1,19 @@
 import { create } from 'zustand';
 
 const initialSteps = [
-  { id: 'step-1', title: 'Step 1. 스타일 선택', desc: '원하는 분위기를 골라보세요', isOpen: false },
-  { id: 'step-2', title: 'Step 2. 메인 정보', desc: '첫 장면을 고릅니다', isOpen: false },
+  { id: 'step-1', title: 'Step 1. 디자인 테마', desc: '청첩장의 전반적인 첫인상을 결정합니다', isOpen: false },
+  { id: 'step-2', title: 'Step 2. 메인 정보', desc: '청첩장의 필수 정보를 입력합니다', isOpen: false },
   { id: 'step-3', title: 'Step 3. 옵션 설정', desc: '모션, 폰트 크기 등 디테일을 설정합니다', isOpen: false },
   { id: 'step-4', title: 'Step 4. 인사말', desc: '초대 문구를 작성합니다', isOpen: false },
-  { id: 'step-5', title: 'Step 5. 갤러리', desc: '가장 아름다운 순간들을 담습니다', isOpen: false },
-  { id: 'step-6', title: 'Step 6. 오시는 길', desc: '하객분들이 편하게 찾아오시도록 안내합니다', isOpen: false },
-  { id: 'step-7', title: 'Step 7. 마음 전하실 곳', desc: '축의의 마음을 전할 계좌 정보를 입력합니다', isOpen: false },
-  { id: 'step-8', title: 'Step 8. 우리만의 이야기', desc: '인터뷰, 하객 안내사항 등 자유로운 이야기를 담아보세요', isOpen: false },
-  { id: 'step-9', title: 'Step 9. 참석 의사 전달', desc: '하객의 참석 여부를 취합합니다 (RSVP)', isOpen: false },
-  { id: 'step-10', title: 'Step 10. 방명록', desc: '하객분들이 축하 메시지를 남길 수 있습니다', isOpen: false },
-  { id: 'step-11', title: 'Step 11. 배경음악(BGM)', desc: '분위기를 더해줄 음악을 선택합니다', isOpen: false },
-  { id: 'step-12', title: 'Step 12. 공유 설정', desc: '카카오톡, 링크 공유 시 썸네일과 문구를 설정합니다', isOpen: false },
-  { id: 'step-13', title: 'Step 13. 화면 순서 변경', desc: '드래그하여 청첩장 구역의 순서를 자유롭게 변경합니다', isOpen: false },
+  { id: 'step-5', title: 'Step 5. 포토 갤러리', desc: '두 사람의 소중하고 아름다운 추억을 공유합니다', isOpen: false },
+  { id: 'step-6', title: 'Step 6. 오시는 길', desc: '예식장 위치와 교통편을 상세히 안내합니다', isOpen: false },
+  { id: 'step-7', title: 'Step 7. 마음 전하는 곳', desc: '참석이 어려운 분들을 위해 계좌번호를 안내합니다', isOpen: false },
+  { id: 'step-8', title: 'Step 8. 스페셜 스토리', desc: '하객 안내사항이나 두 사람만의 특별한 이야기를 적어주세요', isOpen: false },
+  { id: 'step-9', title: 'Step 9. 참석 여부 (RSVP)', desc: '식사 인원 파악을 위해 참석 의사를 미리 조사합니다', isOpen: false },
+  { id: 'step-10', title: 'Step 10. 게스트북', desc: '따뜻한 축하와 응원의 메시지를 받아보세요', isOpen: false },
+  { id: 'step-11', title: 'Step 11. 배경음악 (BGM)', desc: '청첩장에 어울리는 감성적인 음악을 고릅니다', isOpen: false },
+  { id: 'step-12', title: 'Step 12. 공유 설정', desc: '카톡이나 문자로 전송할 때 보여질 대표 이미지와 문구를 설정합니다', isOpen: false },
+  { id: 'step-13', title: 'Step 13. 메뉴 순서 설정', desc: '원하시는 흐름대로 청첩장의 구성을 자유롭게 재배치합니다', isOpen: false },
 ];
 
 export const useBuilderStore = create((set) => ({

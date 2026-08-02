@@ -45,9 +45,17 @@ const ViewerPage = () => {
     );
   }
 
+  useEffect(() => {
+    // ViewerPage 에서는 body 스크롤을 허용하여 IntersectionObserver 모바일 버그 방지
+    document.body.style.overflow = 'auto';
+    return () => {
+      document.body.style.overflow = 'hidden';
+    };
+  }, []);
+
   return (
-    <div style={{ width: '100vw', height: '100dvh', overflowY: 'auto', backgroundColor: '#e5e5e5', display: 'flex', justifyContent: 'center' }}>
-      <div style={{ width: '100%', maxWidth: '480px', backgroundColor: '#fff', boxShadow: '0 0 20px rgba(0,0,0,0.1)', minHeight: '100vh' }}>
+    <div style={{ width: '100%', minHeight: '100vh', backgroundColor: '#e5e5e5', display: 'flex', justifyContent: 'center' }}>
+      <div style={{ width: '100%', maxWidth: '480px', backgroundColor: '#fff', boxShadow: '0 0 20px rgba(0,0,0,0.1)', minHeight: '100vh', overflow: 'hidden' }}>
         <InvitationPreview />
       </div>
     </div>
