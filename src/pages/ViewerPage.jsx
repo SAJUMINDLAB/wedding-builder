@@ -32,7 +32,8 @@ const ViewerPage = () => {
 
   if (loading) {
     return (
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: '#ffffff', zIndex: 99999 }}>
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: '#ffffff', zIndex: 99999, display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#999', fontSize: '14px' }}>
+        데이터를 불러오는 중입니다...
       </div>
     );
   }

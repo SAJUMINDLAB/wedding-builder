@@ -52,7 +52,7 @@ const MainCover = ({ theme, onAdminAccess }) => {
         borderBottomRightRadius: '0',
         marginBottom: theme.id === 'midnight-orange' ? '-30px' : '0'
       }}>
-        <FadeUp active={optionInfo.motionEffect} delay={optionInfo.cinematicIntro ? '0s' : '0s'}>
+        <FadeUp active={optionInfo.motionEffect} delay={optionInfo.cinematicIntro ? '0s' : '0s'} isFirst={true}>
           <p 
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerUpOrLeave}
@@ -72,7 +72,7 @@ const MainCover = ({ theme, onAdminAccess }) => {
           </p>
         </FadeUp>
         
-        <FadeUp active={optionInfo.motionEffect} delay={optionInfo.cinematicIntro ? '0.6s' : '0s'}>
+        <FadeUp active={optionInfo.motionEffect} delay={optionInfo.cinematicIntro ? '0.6s' : '0s'} isFirst={true}>
           <div style={{ fontFamily: 'var(--font-en-serif)', fontSize: 'calc(3.2rem * var(--font-ratio))', lineHeight: '1.2', marginBottom: '20px' }}>
             <div style={{ fontWeight: '500', fontStyle: 'var(--font-en-style)' }}>{mainInfo.groomNameEn}</div>
             <div style={{ fontSize: 'calc(1.5rem * var(--font-ratio))', margin: '8px 0', color: theme.id === 'midnight-orange' ? theme.bg : theme.accent }}>&amp;</div>
@@ -80,13 +80,13 @@ const MainCover = ({ theme, onAdminAccess }) => {
           </div>
         </FadeUp>
 
-        <FadeUp active={optionInfo.motionEffect} delay={optionInfo.cinematicIntro ? '1.2s' : '0s'}>
+        <FadeUp active={optionInfo.motionEffect} delay={optionInfo.cinematicIntro ? '1.2s' : '0s'} isFirst={true}>
           <p style={{ fontFamily: 'var(--font-kr-sans)', fontSize: 'calc(0.9rem * var(--font-ratio))', letterSpacing: 'calc(0.1rem * var(--font-ratio))', marginTop: '40px', fontWeight: theme.id === 'midnight-orange' ? '500' : '300' }}>
             {formattedDate} {dayName}. {mainInfo.timeHour}:{mainInfo.timeMinute} {mainInfo.timeAmPm}
           </p>
         </FadeUp>
 
-        <FadeUp active={optionInfo.motionEffect} delay={optionInfo.cinematicIntro ? '1.8s' : '0s'}>
+        <FadeUp active={optionInfo.motionEffect} delay={optionInfo.cinematicIntro ? '1.8s' : '0s'} isFirst={true}>
           <p style={{ fontFamily: 'var(--font-kr-serif)', fontSize: 'calc(1rem * var(--font-ratio))', marginTop: '12px', color: theme.id === 'midnight-orange' ? theme.bg : theme.text, opacity: theme.id === 'midnight-orange' ? 0.8 : 1 }}>
             {mainInfo.location}
           </p>
@@ -94,7 +94,7 @@ const MainCover = ({ theme, onAdminAccess }) => {
       </div>
 
       {/* 프리미엄 메인 이미지 (Parallax) */}
-      <FadeUp active={optionInfo.motionEffect} delay={optionInfo.cinematicIntro ? '2.4s' : '0s'}>
+      <FadeUp active={optionInfo.motionEffect} delay={optionInfo.cinematicIntro ? '2.4s' : '0s'} isFirst={true}>
         <div style={{ padding: mainInfo.mainImageShape === 'full' ? '0' : '0 20px', display: 'flex', justifyContent: 'center', marginBottom: '70px', position: 'relative', zIndex: 10 }}>
           {mainInfo.mainImageShape === 'full' ? (
             <img 
