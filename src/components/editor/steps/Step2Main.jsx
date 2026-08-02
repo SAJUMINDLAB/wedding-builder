@@ -2,16 +2,18 @@ import React, { useRef } from 'react';
 import { useBuilderStore } from '../../../store/useBuilderStore';
 import { Upload, Image as ImageIcon, X } from 'lucide-react';
 
+import { compressImage } from '../../../utils/imageUtils';
+
 const Step2Main = () => {
   const mainInfo = useBuilderStore(state => state.mainInfo);
   const setMainInfo = useBuilderStore(state => state.setMainInfo);
   const fileInputRef = useRef(null);
 
-  const handleMainImageUpload = (e) => {
+  const handleMainImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      const url = URL.createObjectURL(file);
-      setMainInfo('mainImage', url);
+      const compressedBase64 = await compressImage(file, 1080);
+      setMainInfo('mainImage', compressedBase64);
     }
   };
 

@@ -3,6 +3,8 @@ import { useBuilderStore } from '../../../store/useBuilderStore';
 import { ImagePlus, Trash2, GripVertical } from 'lucide-react';
 import { Droppable, Draggable } from '@hello-pangea/dnd';
 
+import { compressImage } from '../../../utils/imageUtils';
+
 const Step5Gallery = () => {
   const galleryInfo = useBuilderStore(state => state.galleryInfo);
   const setGalleryInfo = useBuilderStore(state => state.setGalleryInfo);
@@ -11,18 +13,13 @@ const Step5Gallery = () => {
     const files = Array.from(e.target.files);
     if (!files.length) return;
 
-    const newImages = await Promise.all(files.map(file => {
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          resolve({
-            id: Math.random().toString(36).substring(7),
-            url: e.target.result, // Base64 Data URL
-            name: file.name
-          });
-        };
-        reader.readAsDataURL(file);
-      });
+    const newImages = await Promise.all(files.map(async (file) => {
+      const compressedBase64 = await compressImage(file, 1080);
+      return {
+        id: Math.random().toString(36).substring(7),
+        url: compressedBase64,
+        name: file.name
+      };
     }));
 
     setGalleryInfo('images', [...galleryInfo.images, ...newImages]);

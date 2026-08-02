@@ -51,12 +51,6 @@ const EditorPanel = () => {
           <h1>Invitation Editor</h1>
           <p style={{ color: '#888', fontSize: '0.9rem', marginTop: '4px' }}>청첩장 수정하기</p>
         </div>
-        <a 
-          href="/admin"
-          style={{ padding: '8px 16px', backgroundColor: '#f0f0f0', color: '#222', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 'bold', textDecoration: 'none' }}
-        >
-          대시보드 가기
-        </a>
       </div>
 
       <div style={{ padding: '16px 20px 24px 20px' }}>
