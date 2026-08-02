@@ -57,6 +57,8 @@ const MainCover = ({ theme, onAdminAccess }) => {
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerUpOrLeave}
             onPointerLeave={handlePointerUpOrLeave}
+            onTouchStart={handlePointerDown}
+            onTouchEnd={handlePointerUpOrLeave}
             onContextMenu={(e) => { e.preventDefault(); e.stopPropagation(); return false; }}
             style={{ 
               fontFamily: 'var(--font-en-serif)', fontStyle: 'var(--font-en-style)', 

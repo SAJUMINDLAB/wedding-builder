@@ -63,7 +63,7 @@ const AdminDashboard = () => {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FAFAFA', color: '#666' }}>
+      <div style={{ display: 'flex', height: '100dvh', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FAFAFA', color: '#666' }}>
         <p style={{ fontFamily: 'var(--font-kr-sans)' }}>데이터를 불러오는 중...</p>
       </div>
     );
@@ -71,7 +71,7 @@ const AdminDashboard = () => {
 
   if (!selectedInv) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FAFAFA', color: '#666', fontFamily: 'var(--font-kr-sans)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FAFAFA', color: '#666', fontFamily: 'var(--font-kr-sans)' }}>
         <p style={{ fontSize: '1.1rem', marginBottom: '16px' }}>생성된 청첩장이 없습니다.</p>
         <button onClick={() => navigate(-1)} style={{ padding: '12px 24px', backgroundColor: '#000', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>돌아가기</button>
       </div>
@@ -102,7 +102,7 @@ const AdminDashboard = () => {
   const tdStyle = { padding: '16px 20px', borderBottom: '1px solid #EAEAEA', color: '#111', fontSize: '0.95rem', verticalAlign: 'middle' };
 
   return (
-    <div style={{ backgroundColor: '#FAFAFA', height: '100vh', overflowY: 'auto', padding: '60px 20px', fontFamily: 'var(--font-kr-sans)' }}>
+    <div style={{ backgroundColor: '#FAFAFA', height: '100dvh', overflowY: 'auto', padding: '60px 20px', fontFamily: 'var(--font-kr-sans)' }}>
       <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
         
         {/* Header */}

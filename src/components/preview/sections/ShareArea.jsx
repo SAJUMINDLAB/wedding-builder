@@ -12,7 +12,22 @@ const ShareArea = ({ theme }) => {
       <div style={{ padding: '60px 20px', backgroundColor: theme.bg, borderTop: '1px solid rgba(0,0,0,0.05)' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <button 
-            onClick={() => alert(`[카카오톡 공유 썸네일 확인]\n\n제목: ${shareInfo.title}\n설명: ${shareInfo.description}\n\n(실제 환경에서는 카카오톡 앱이 열립니다.)`)}
+            onClick={async () => {
+              if (navigator.share) {
+                try {
+                  await navigator.share({
+                    title: shareInfo.title,
+                    text: shareInfo.description,
+                    url: window.location.href,
+                  });
+                } catch (error) {
+                  console.log('공유 취소 또는 오류:', error);
+                }
+              } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('초대장 링크가 복사되었습니다.\n원하시는 곳에 붙여넣기(Ctrl+V) 하세요.');
+              }
+            }}
             style={{ width: '100%', padding: '16px', backgroundColor: '#FAE100', color: '#371D1E', border: 'none', borderRadius: '12px', fontSize: 'calc(1rem * var(--font-ratio))', fontWeight: 'bold', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', fontFamily: 'var(--font-kr-sans)' }}
           >
             <MessageCircle size={20} color="#371D1E" />
@@ -20,7 +35,7 @@ const ShareArea = ({ theme }) => {
           </button>
           <button 
             onClick={() => {
-              navigator.clipboard.writeText('https://wedding.example.com/donghyun-seulgi');
+              navigator.clipboard.writeText(window.location.href);
               alert('초대장 링크가 복사되었습니다.\n원하시는 곳에 붙여넣기(Ctrl+V) 하세요.');
             }}
             style={{ width: '100%', padding: '16px', backgroundColor: '#fff', color: '#333', border: '1px solid #ddd', borderRadius: '12px', fontSize: 'calc(1rem * var(--font-ratio))', fontWeight: 'bold', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', fontFamily: 'var(--font-kr-sans)' }}

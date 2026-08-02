@@ -32,7 +32,7 @@ const ViewerPage = () => {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#f9f9f9', color: '#666' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100dvh', backgroundColor: '#f9f9f9', color: '#666' }}>
         청첩장을 불러오는 중입니다...
       </div>
     );
@@ -40,14 +40,14 @@ const ViewerPage = () => {
 
   if (error) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#f9f9f9', color: '#d32f2f' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100dvh', backgroundColor: '#f9f9f9', color: '#d32f2f' }}>
         {error}
       </div>
     );
   }
 
   return (
-    <div style={{ width: '100vw', height: '100vh', overflowY: 'auto', backgroundColor: '#e5e5e5', display: 'flex', justifyContent: 'center' }}>
+    <div style={{ width: '100vw', height: '100dvh', overflowY: 'auto', backgroundColor: '#e5e5e5', display: 'flex', justifyContent: 'center' }}>
       <div style={{ width: '100%', maxWidth: '480px', backgroundColor: '#fff', boxShadow: '0 0 20px rgba(0,0,0,0.1)', minHeight: '100vh' }}>
         <InvitationPreview />
       </div>

@@ -50,17 +50,17 @@ const LocationArea = ({ theme }) => {
 
         <div style={{ display: 'flex', gap: '8px', marginBottom: '30px' }}>
           {locationInfo.navButtons.naver && (
-            <a href={`https://map.naver.com/v5/search/${encodeURIComponent(locationInfo.venueName + ' ' + locationInfo.address)}`} target="_blank" rel="noreferrer" style={{ flex: 1, padding: '12px 0', textAlign: 'center', backgroundColor: 'transparent', border: `1px solid ${theme.text}`, color: theme.text, textDecoration: 'none', borderRadius: '6px', fontSize: 'calc(0.8rem * var(--font-ratio))', fontWeight: '500', fontFamily: 'var(--font-kr-sans)', letterSpacing: 'calc(0.02rem * var(--font-ratio))' }}>
+            <a href={`https://map.naver.com/v5/search/${encodeURIComponent(locationInfo.address)}`} target="_blank" rel="noreferrer" style={{ flex: 1, padding: '12px 0', textAlign: 'center', backgroundColor: 'transparent', border: `1px solid ${theme.text}`, color: theme.text, textDecoration: 'none', borderRadius: '6px', fontSize: 'calc(0.8rem * var(--font-ratio))', fontWeight: '500', fontFamily: 'var(--font-kr-sans)', letterSpacing: 'calc(0.02rem * var(--font-ratio))' }}>
               네이버 지도
             </a>
           )}
           {locationInfo.navButtons.kakao && (
-            <a href={`https://map.kakao.com/link/search/${encodeURIComponent(locationInfo.venueName + ' ' + locationInfo.address)}`} target="_blank" rel="noreferrer" style={{ flex: 1, padding: '12px 0', textAlign: 'center', backgroundColor: 'transparent', border: `1px solid ${theme.text}`, color: theme.text, textDecoration: 'none', borderRadius: '6px', fontSize: 'calc(0.8rem * var(--font-ratio))', fontWeight: '500', fontFamily: 'var(--font-kr-sans)', letterSpacing: 'calc(0.02rem * var(--font-ratio))' }}>
+            <a href={`https://map.kakao.com/link/search/${encodeURIComponent(locationInfo.address)}`} target="_blank" rel="noreferrer" style={{ flex: 1, padding: '12px 0', textAlign: 'center', backgroundColor: 'transparent', border: `1px solid ${theme.text}`, color: theme.text, textDecoration: 'none', borderRadius: '6px', fontSize: 'calc(0.8rem * var(--font-ratio))', fontWeight: '500', fontFamily: 'var(--font-kr-sans)', letterSpacing: 'calc(0.02rem * var(--font-ratio))' }}>
               카카오맵
             </a>
           )}
           {locationInfo.navButtons.tmap && (
-            <a href={`tmap://search?name=${encodeURIComponent(locationInfo.venueName)}`} target="_blank" rel="noreferrer" style={{ flex: 1, padding: '12px 0', textAlign: 'center', backgroundColor: 'transparent', border: `1px solid ${theme.text}`, color: theme.text, textDecoration: 'none', borderRadius: '6px', fontSize: 'calc(0.8rem * var(--font-ratio))', fontWeight: '500', fontFamily: 'var(--font-kr-sans)', letterSpacing: 'calc(0.02rem * var(--font-ratio))' }}>
+            <a href={`tmap://search?name=${encodeURIComponent(locationInfo.address)}`} target="_blank" rel="noreferrer" style={{ flex: 1, padding: '12px 0', textAlign: 'center', backgroundColor: 'transparent', border: `1px solid ${theme.text}`, color: theme.text, textDecoration: 'none', borderRadius: '6px', fontSize: 'calc(0.8rem * var(--font-ratio))', fontWeight: '500', fontFamily: 'var(--font-kr-sans)', letterSpacing: 'calc(0.02rem * var(--font-ratio))' }}>
               티맵
             </a>
           )}

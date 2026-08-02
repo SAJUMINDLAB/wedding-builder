@@ -17,8 +17,8 @@ const Step11Bgm = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    if (file.size > 5 * 1024 * 1024) {
-      alert('파일 용량이 5MB를 초과합니다. 5MB 이하의 MP3 파일을 업로드해주세요.');
+    if (file.size > 3 * 1024 * 1024) {
+      alert('청첩장 저장 용량 제한으로 인해 3MB 이하의 MP3 파일만 업로드 가능합니다.');
       return;
     }
 
@@ -27,10 +27,14 @@ const Step11Bgm = () => {
       return;
     }
 
-    const url = URL.createObjectURL(file);
-    updateBgmInfo('customTrackUrl', url);
-    updateBgmInfo('customTrackName', file.name);
-    updateBgmInfo('selectedTrack', 'custom');
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const base64String = event.target.result;
+      updateBgmInfo('customTrackUrl', base64String);
+      updateBgmInfo('customTrackName', file.name);
+      updateBgmInfo('selectedTrack', 'custom');
+    };
+    reader.readAsDataURL(file);
   };
 
   return (
