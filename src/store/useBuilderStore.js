@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 const initialSteps = [
-  { id: 'step-1', title: 'Step 1. 스타일 선택', desc: '원하는 분위기를 골라보세요', isOpen: true },
+  { id: 'step-1', title: 'Step 1. 스타일 선택', desc: '원하는 분위기를 골라보세요', isOpen: false },
   { id: 'step-2', title: 'Step 2. 메인 정보', desc: '첫 장면을 고릅니다', isOpen: false },
   { id: 'step-3', title: 'Step 3. 옵션 설정', desc: '모션, 폰트 크기 등 디테일을 설정합니다', isOpen: false },
   { id: 'step-4', title: 'Step 4. 인사말', desc: '초대 문구를 작성합니다', isOpen: false },
@@ -285,10 +285,32 @@ export const useBuilderStore = create((set) => ({
     }
   })),
 
-  // 메인 정보 업데이트 함수
-  setMainInfo: (key, value) => set((state) => ({
-    mainInfo: { ...state.mainInfo, [key]: value }
-  })),
+  // 메인 정보 업데이트 함수 (공유 설정 자동 동기화 포함)
+  setMainInfo: (key, value) => set((state) => {
+    const newMainInfo = { ...state.mainInfo, [key]: value };
+    let newShareInfo = { ...state.shareInfo };
+
+    // 신랑/신부 이름 변경 시 공유 타이틀 자동 업데이트
+    if (key === 'groomNameKo' || key === 'brideNameKo') {
+      const groom = newMainInfo.groomNameKo || '신랑';
+      const bride = newMainInfo.brideNameKo || '신부';
+      newShareInfo.title = `${groom} ❤️ ${bride} 결혼합니다`;
+    }
+
+    // 날짜 변경 시 공유 설명문 자동 업데이트
+    if (key === 'date') {
+      const dateParts = value.split('-');
+      if (dateParts.length === 3) {
+        const [year, month, day] = dateParts;
+        newShareInfo.description = `${year}년 ${month}월 ${day}일\n저희 두 사람의 아름다운 출발을 축하해 주세요.`;
+      }
+    }
+
+    return {
+      mainInfo: newMainInfo,
+      shareInfo: newShareInfo
+    };
+  }),
 
   // 옵션 설정 상태
   optionInfo: {
