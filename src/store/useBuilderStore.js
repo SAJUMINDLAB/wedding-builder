@@ -1,0 +1,341 @@
+import { create } from 'zustand';
+
+const initialSteps = [
+  { id: 'step-1', title: 'Step 1. 스타일 선택', desc: '원하는 분위기를 골라보세요', isOpen: true },
+  { id: 'step-2', title: 'Step 2. 메인 정보', desc: '첫 장면을 고릅니다', isOpen: false },
+  { id: 'step-3', title: 'Step 3. 옵션 설정', desc: '모션, 폰트 크기 등 디테일을 설정합니다', isOpen: false },
+  { id: 'step-4', title: 'Step 4. 인사말', desc: '초대 문구를 작성합니다', isOpen: false },
+  { id: 'step-5', title: 'Step 5. 갤러리', desc: '가장 아름다운 순간들을 담습니다', isOpen: false },
+  { id: 'step-6', title: 'Step 6. 오시는 길', desc: '하객분들이 편하게 찾아오시도록 안내합니다', isOpen: false },
+  { id: 'step-7', title: 'Step 7. 마음 전하실 곳', desc: '축의의 마음을 전할 계좌 정보를 입력합니다', isOpen: false },
+  { id: 'step-8', title: 'Step 8. 우리만의 이야기', desc: '인터뷰, 하객 안내사항 등 자유로운 이야기를 담아보세요', isOpen: false },
+  { id: 'step-9', title: 'Step 9. 참석 의사 전달', desc: '하객의 참석 여부를 취합합니다 (RSVP)', isOpen: false },
+  { id: 'step-10', title: 'Step 10. 방명록', desc: '하객분들이 축하 메시지를 남길 수 있습니다', isOpen: false },
+  { id: 'step-11', title: 'Step 11. 배경음악(BGM)', desc: '분위기를 더해줄 음악을 선택합니다', isOpen: false },
+  { id: 'step-12', title: 'Step 12. 공유 설정', desc: '카카오톡, 링크 공유 시 썸네일과 문구를 설정합니다', isOpen: false },
+  { id: 'step-13', title: 'Step 13. 화면 순서 변경', desc: '드래그하여 청첩장 구역의 순서를 자유롭게 변경합니다', isOpen: false },
+];
+
+export const useBuilderStore = create((set) => ({
+  currentInvitationId: null,
+  setCurrentInvitationId: (id) => set({ currentInvitationId: id }),
+  steps: initialSteps,
+  selectedTheme: 'custom',
+
+  
+  sectionOrder: [
+    { id: 'intro', label: '인사말' },
+    { id: 'host', label: '혼주 정보' },
+    { id: 'calendar', label: '달력' },
+    { id: 'story', label: '우리만의 이야기' },
+    { id: 'gallery', label: '갤러리' },
+    { id: 'location', label: '오시는 길' },
+    { id: 'account', label: '마음 전하실 곳' },
+    { id: 'guestbook', label: '방명록' },
+    { id: 'rsvp', label: '참석 의사 전달' }
+  ],
+  setSectionOrder: (newOrder) => set({ sectionOrder: newOrder }),
+  
+  mainInfo: {
+    mainImage: '/images/ohalek00-wedding-6787691_1920.jpg',
+    mainImageShape: 'full', // full, arch, rectangle, rounded, circle
+    groomNameEn: 'Groom',
+    groomNameKo: '신랑',
+    brideNameEn: 'Bride',
+    brideNameKo: '신부',
+    date: '2026-01-01',
+    timeAmPm: 'PM',
+    timeHour: '1',
+    timeMinute: '00',
+    location: '웨딩홀 이름',
+    
+    groomFather: '아버님',
+    groomMother: '어머님',
+    groomRelation: '아들',
+    brideFather: '아버님',
+    brideMother: '어머님',
+    brideRelation: '딸'
+  },
+
+  greetingInfo: {
+    useGreeting: true,
+    title: 'Invite You',
+    content: '서로가 마주보며 다져온 사랑을\n이제 함께 한 곳을 바라보며 걸어갈 수 있는\n큰 사랑으로 키우고자 합니다.\n\n저희 두 사람이 사랑의 이름으로\n지켜나갈 수 있게 앞날을\n축복해 주시면 감사하겠습니다.'
+  },
+  
+  setGreetingInfo: (key, value) => set((state) => ({
+    greetingInfo: { ...state.greetingInfo, [key]: value }
+  })),
+
+  galleryInfo: {
+    useGallery: true,
+    layout: 'grid', // 'grid', 'masonry', 'carousel'
+    images: [] // Array of { id, url, name }
+  },
+  
+  setGalleryInfo: (key, value) => set((state) => ({
+    galleryInfo: { ...state.galleryInfo, [key]: value }
+  })),
+  
+  reorderGalleryImages: (startIndex, endIndex) => set((state) => {
+    const newImages = Array.from(state.galleryInfo.images);
+    const [removed] = newImages.splice(startIndex, 1);
+    newImages.splice(endIndex, 0, removed);
+    return { galleryInfo: { ...state.galleryInfo, images: newImages } };
+  }),
+
+  locationInfo: {
+    useTransportation: true,
+    mapType: 'dynamic', // 'image' | 'dynamic'
+    mapImage: null,
+    venueName: '웨딩홀 이름',
+    address: '서울특별시 강남구 테헤란로 123',
+    tel: '02-123-4567',
+    transportation: [
+      { id: 't1', label: '지하철', content: '지하철 2호선 역삼역 1번 출구 도보 5분' },
+      { id: 't2', label: '버스', content: '간선버스 146, 341, 360 (웨딩홀 앞 하차)' },
+      { id: 't3', label: '자가용 / 주차', content: '건물 내 지하 주차장 이용 (2시간 무료)' },
+      { id: 't4', label: '기차 (KTX / SRT)', content: '서울역 하차 후 지하철 이용' }
+    ],
+    navButtons: { naver: true, kakao: true, tmap: true }
+  },
+
+  setLocationInfo: (key, value) => set((state) => ({
+    locationInfo: { ...state.locationInfo, [key]: value }
+  })),
+
+  updateTransportation: (id, key, value) => set((state) => ({
+    locationInfo: {
+      ...state.locationInfo,
+      transportation: state.locationInfo.transportation.map(t => t.id === id ? { ...t, [key]: value } : t)
+    }
+  })),
+
+  addTransportation: () => set((state) => ({
+    locationInfo: {
+      ...state.locationInfo,
+      transportation: [...state.locationInfo.transportation, { id: Math.random().toString(36).substring(7), label: '새 교통편', content: '' }]
+    }
+  })),
+
+  removeTransportation: (id) => set((state) => ({
+    locationInfo: {
+      ...state.locationInfo,
+      transportation: state.locationInfo.transportation.filter(t => t.id !== id)
+    }
+  })),
+
+  accountInfo: {
+    useAccount: true,
+    message: '따뜻한 마음으로 축복해 주시는\n모든 분들께 진심으로 감사드립니다.',
+    groom: [
+      { id: 'g1', relation: '신랑', bank: '신한은행', account: '110-123-456789', holder: '신랑이름', kakaopay: '' },
+      { id: 'g2', relation: '신랑 아버지', bank: '국민은행', account: '123-456-789012', holder: '아버님', kakaopay: '' }
+    ],
+    bride: [
+      { id: 'b1', relation: '신부', bank: '우리은행', account: '1002-123-456789', holder: '신부이름', kakaopay: '' }
+    ]
+  },
+
+  updateAccountInfo: (key, value) => set((state) => ({
+    accountInfo: { ...state.accountInfo, [key]: value }
+  })),
+
+  storyInfo: {
+    useStory: true,
+    title: '우리만의 이야기',
+    mode: 'letter', // 'letter' or 'qna'
+    letterContent: '서로가 서로를 만나\n가장 나다운 모습으로\n평생을 함께하려 합니다.\n\n비가 오나 눈이 오나\n서로의 우산이 되어주며\n예쁘게 잘 살겠습니다.',
+    qnaList: [
+      { id: 'q1', question: '두 사람의 첫 만남은?', answer: '대학교 동아리 신입생 환영회에서 처음 만났어요.' },
+      { id: 'q2', question: '서로의 첫인상은 어땠나요?', answer: '신랑: 조용하고 참 예쁜 사람\n신부: 말이 진짜 많고 웃긴 사람' }
+    ]
+  },
+
+  updateStoryInfo: (key, value) => set((state) => ({
+    storyInfo: { ...state.storyInfo, [key]: value }
+  })),
+
+  setStoryMode: (mode) => set((state) => ({
+    storyInfo: { ...state.storyInfo, mode }
+  })),
+
+  updateStoryLetter: (content) => set((state) => ({
+    storyInfo: { ...state.storyInfo, letterContent: content }
+  })),
+
+  updateStoryQna: (id, key, value) => set((state) => ({
+    storyInfo: {
+      ...state.storyInfo,
+      qnaList: state.storyInfo.qnaList.map(q => q.id === id ? { ...q, [key]: value } : q)
+    }
+  })),
+
+  addStoryQna: () => set((state) => ({
+    storyInfo: {
+      ...state.storyInfo,
+      qnaList: [...state.storyInfo.qnaList, { id: Math.random().toString(36).substring(7), question: '새로운 질문', answer: '' }]
+    }
+  })),
+
+  removeStoryQna: (id) => set((state) => ({
+    storyInfo: {
+      ...state.storyInfo,
+      qnaList: state.storyInfo.qnaList.filter(q => q.id !== id)
+    }
+  })),
+
+  rsvpInfo: {
+    useRsvp: true,
+    title: '참석 의사 전달',
+    modalTitle: 'RSVP',
+    description: '결혼식에 참석해주시는 모든 분들을\n더욱 특별하게 모시고자 하오니,\n참석 여부 전달을 부탁드립니다.',
+    useContactOption: true,
+    useMealOption: true,
+    useCompanionOption: true,
+    useMessageOption: true,
+    emphasisMode: 'floating' // 'floating' | 'toast' | 'modal' | 'none'
+  },
+
+  guestbookInfo: {
+    useGuestbook: true,
+    description: '신랑 신부에게\n따뜻한 축하의 한마디를 남겨주세요.',
+    entries: []
+  },
+
+  bgmInfo: {
+    useBgm: true,
+    selectedTrack: 'track1', // track1: 캐논, track2: 결혼행진곡, track3: 쇼팽, custom: 직접 업로드
+    autoPlay: false,
+    customTrackUrl: null,
+    customTrackName: ''
+  },
+
+  shareInfo: {
+    title: '신랑 ❤️ 신부 결혼합니다',
+    description: '2026년 01월 01일\n저희 두 사람의 아름다운 출발을 축하해 주세요.',
+    thumbnailUrl: null
+  },
+
+  updateRsvpInfo: (key, value) => set((state) => ({
+    rsvpInfo: { ...state.rsvpInfo, [key]: value }
+  })),
+
+  updateBgmInfo: (key, value) => set((state) => ({
+    bgmInfo: { ...state.bgmInfo, [key]: value }
+  })),
+
+  updateShareInfo: (key, value) => set((state) => ({
+    shareInfo: { ...state.shareInfo, [key]: value }
+  })),
+
+  updateGuestbookInfo: (key, value) => set((state) => ({
+    guestbookInfo: { ...state.guestbookInfo, [key]: value }
+  })),
+
+  addGuestbookEntry: (entry) => set((state) => ({
+    guestbookInfo: {
+      ...state.guestbookInfo,
+      entries: [{ ...entry, id: `gb${Date.now()}` }, ...state.guestbookInfo.entries]
+    }
+  })),
+
+  removeGuestbookEntry: (id) => set((state) => ({
+    guestbookInfo: {
+      ...state.guestbookInfo,
+      entries: state.guestbookInfo.entries.filter(e => e.id !== id)
+    }
+  })),
+
+  editGuestbookEntry: (id, updatedEntry) => set((state) => ({
+    guestbookInfo: {
+      ...state.guestbookInfo,
+      entries: state.guestbookInfo.entries.map(e => 
+        e.id === id ? { ...e, ...updatedEntry } : e
+      )
+    }
+  })),
+
+  updateAccountMessage: (text) => set((state) => ({
+    accountInfo: { ...state.accountInfo, message: text }
+  })),
+
+  updateAccountInfo: (key, value) => set((state) => ({
+    accountInfo: { ...state.accountInfo, [key]: value }
+  })),
+
+  updateAccount: (side, id, key, value) => set((state) => ({
+    accountInfo: {
+      ...state.accountInfo,
+      [side]: state.accountInfo[side].map(acc => acc.id === id ? { ...acc, [key]: value } : acc)
+    }
+  })),
+
+  addAccount: (side) => set((state) => ({
+    accountInfo: {
+      ...state.accountInfo,
+      [side]: [...state.accountInfo[side], { id: Math.random().toString(36).substring(7), relation: '', bank: '', account: '', holder: '', kakaopay: '' }]
+    }
+  })),
+
+  removeAccount: (side, id) => set((state) => ({
+    accountInfo: {
+      ...state.accountInfo,
+      [side]: state.accountInfo[side].filter(acc => acc.id !== id)
+    }
+  })),
+
+  // 메인 정보 업데이트 함수
+  setMainInfo: (key, value) => set((state) => ({
+    mainInfo: { ...state.mainInfo, [key]: value }
+  })),
+
+  // 옵션 설정 상태
+  optionInfo: {
+    motionEffect: true,
+    cinematicIntro: true,
+    fontSize: 'M',
+    texture: false,
+    pageZoom: true,
+    particlesEffect: true,
+    particleType: 'snow',
+    parallaxEffect: true,
+    shineEffect: true
+  },
+
+  setOptionInfo: (key, value) => set((state) => ({
+    optionInfo: { ...state.optionInfo, [key]: value }
+  })),
+
+  // 스크롤 상태 (패럴랙스용)
+  scrollY: 0,
+  setScrollY: (y) => set({ scrollY: y }),
+
+  // Reorder steps after drag-and-drop
+  reorderSteps: (startIndex, endIndex) => set((state) => {
+    const result = Array.from(state.steps);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return { steps: result };
+  }),
+
+  // Toggle accordion open/close state
+  toggleStep: (id) => set((state) => ({
+    steps: state.steps.map(step => 
+      step.id === id ? { ...step, isOpen: !step.isOpen } : { ...step, isOpen: false }
+    )
+  })),
+
+  activeStep: 1, // 1~12
+  setActiveStep: (step) => set({ activeStep: step }),
+
+  // 스타일 관련 상태
+  selectedTheme: 'custom',
+  setTheme: (themeId) => set({ selectedTheme: themeId }),
+  customColors: { bg: '#ffffff', accent: '#000000' },
+  setCustomColors: (colors) => set((state) => ({ customColors: { ...state.customColors, ...colors } })),
+  selectedFont: 'Noto Sans KR',
+  setFont: (font) => set({ selectedFont: font }),
+  selectedFontEn: 'Cormorant Italic',
+  setFontEn: (font) => set({ selectedFontEn: font })
+}));
