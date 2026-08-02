@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getInvitation } from '../api/supabaseApi';
 import { useBuilderStore } from '../store/useBuilderStore';
 import InvitationPreview from '../components/preview/InvitationPreview';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const ViewerPage = () => {
   const { id } = useParams();
@@ -57,7 +58,9 @@ const ViewerPage = () => {
   return (
     <div style={{ width: '100%', minHeight: '100vh', backgroundColor: '#e5e5e5', display: 'flex', justifyContent: 'center' }}>
       <div style={{ width: '100%', maxWidth: '480px', backgroundColor: '#fff', boxShadow: '0 0 20px rgba(0,0,0,0.1)', minHeight: '100vh', overflow: 'hidden' }}>
-        <InvitationPreview />
+        <ErrorBoundary>
+          <InvitationPreview />
+        </ErrorBoundary>
       </div>
     </div>
   );
