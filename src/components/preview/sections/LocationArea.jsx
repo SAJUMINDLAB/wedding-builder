@@ -5,6 +5,41 @@ import FadeUp from '../FadeUp';
 const LocationArea = ({ theme }) => {
   const optionInfo = useBuilderStore(state => state.optionInfo);
   const locationInfo = useBuilderStore(state => state.locationInfo);
+  const mapContainer = React.useRef(null);
+
+  React.useEffect(() => {
+    if (locationInfo.mapType === 'image') return;
+    
+    // 카카오맵 스크립트가 로드되었는지 확인
+    if (window.kakao && window.kakao.maps) {
+      window.kakao.maps.load(() => {
+        if (!mapContainer.current) return;
+        const geocoder = new window.kakao.maps.services.Geocoder();
+        
+        geocoder.addressSearch(locationInfo.address, (result, status) => {
+          if (status === window.kakao.maps.services.Status.OK) {
+            const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
+            
+            const options = {
+              center: coords,
+              level: 4 // 지도의 확대 레벨
+            };
+            
+            const map = new window.kakao.maps.Map(mapContainer.current, options);
+            
+            new window.kakao.maps.Marker({
+              map: map,
+              position: coords
+            });
+
+            // 지도 드래그(이동) 및 줌 막기 - 모바일 스크롤 중 지도 오작동 방지
+            map.setDraggable(false);
+            map.setZoomable(false);
+          }
+        });
+      });
+    }
+  }, [locationInfo.address, locationInfo.mapType]);
 
   return (
     <FadeUp active={optionInfo.motionEffect}>
@@ -35,16 +70,7 @@ const LocationArea = ({ theme }) => {
           </div>
         ) : (
           <div style={{ width: '100%', height: '240px', backgroundColor: '#eee', marginBottom: '16px', borderRadius: '8px', overflow: 'hidden', position: 'relative' }}>
-            {/* CSS crop trick to hide Google Maps top UI (Header, Satellite) but keep bottom Zoom buttons */}
-            <iframe
-              title="map"
-              style={{ position: 'absolute', top: '-85px', left: 0, width: '100%', height: 'calc(100% + 85px)', border: 0, pointerEvents: 'none' }}
-              loading="lazy"
-              allowFullScreen
-              src={`https://maps.google.com/maps?q=${encodeURIComponent(locationInfo.venueName + ' ' + locationInfo.address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
-            />
-            {/* Overlay to prevent accidental panning or clicking hidden UI if pointer events bleed through */}
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'transparent', zIndex: 5, pointerEvents: 'none' }} />
+            <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />
           </div>
         )}
 

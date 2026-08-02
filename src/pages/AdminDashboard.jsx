@@ -63,7 +63,7 @@ const AdminDashboard = () => {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', height: '100dvh', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FAFAFA', color: '#666' }}>
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FAFAFA', color: '#666', zIndex: 99999 }}>
         <p style={{ fontFamily: 'var(--font-kr-sans)' }}>데이터를 불러오는 중...</p>
       </div>
     );
@@ -71,7 +71,7 @@ const AdminDashboard = () => {
 
   if (!selectedInv) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FAFAFA', color: '#666', fontFamily: 'var(--font-kr-sans)' }}>
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FAFAFA', color: '#666', fontFamily: 'var(--font-kr-sans)', zIndex: 99999 }}>
         <p style={{ fontSize: '1.1rem', marginBottom: '16px' }}>생성된 청첩장이 없습니다.</p>
         <button onClick={() => navigate(-1)} style={{ padding: '12px 24px', backgroundColor: '#000', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>돌아가기</button>
       </div>
@@ -157,7 +157,7 @@ const AdminDashboard = () => {
 
         {/* RSVP Table */}
         <div style={{ backgroundColor: '#fff', border: '1px solid #EAEAEA', marginBottom: '60px' }}>
-          <div style={{ padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #EAEAEA' }}>
+          <div style={{ padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #EAEAEA', flexWrap: 'wrap', gap: '12px' }}>
             <h2 style={{ fontSize: '1.2rem', color: '#000', margin: 0, fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Users size={20} /> 참석 의사 (RSVP) 명단
             </h2>
@@ -169,6 +169,9 @@ const AdminDashboard = () => {
             >
               <Download size={16} /> 엑셀 다운로드 (CSV)
             </button>
+          </div>
+          <div style={{ padding: '12px 24px', backgroundColor: '#F8F9FA', fontSize: '0.8rem', color: '#666', borderBottom: '1px solid #EAEAEA', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            👈 표를 좌우로 스와이프하여 모든 내용을 확인하세요 👉
           </div>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
@@ -219,6 +222,9 @@ const AdminDashboard = () => {
           <div style={{ padding: '24px', borderBottom: '1px solid #EAEAEA', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <BookOpen size={20} color="#000" />
             <h2 style={{ fontSize: '1.2rem', color: '#000', margin: 0, fontWeight: '500' }}>방명록 현황 ({guestbookEntries.length})</h2>
+          </div>
+          <div style={{ padding: '12px 24px', backgroundColor: '#F8F9FA', fontSize: '0.8rem', color: '#666', borderBottom: '1px solid #EAEAEA', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            👈 표를 좌우로 스와이프하여 모든 내용을 확인하세요 👉
           </div>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>

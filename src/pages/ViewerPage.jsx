@@ -32,7 +32,7 @@ const ViewerPage = () => {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100dvh', backgroundColor: '#f9f9f9', color: '#666' }}>
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f9f9f9', color: '#666', zIndex: 99999 }}>
         청첩장을 불러오는 중입니다...
       </div>
     );
@@ -40,7 +40,7 @@ const ViewerPage = () => {
 
   if (error) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100dvh', backgroundColor: '#f9f9f9', color: '#d32f2f' }}>
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f9f9f9', color: '#d32f2f', zIndex: 99999 }}>
         {error}
       </div>
     );

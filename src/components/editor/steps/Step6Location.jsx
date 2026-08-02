@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useBuilderStore } from '../../../store/useBuilderStore';
-import { MapPin, Phone, ImagePlus, CheckCircle2, Trash2, Plus } from 'lucide-react';
+import { MapPin, Phone, ImagePlus, CheckCircle2, Trash2, Plus, X } from 'lucide-react';
+import DaumPostcode from 'react-daum-postcode';
 
 const InputRow = ({ icon: Icon, label, value, onChange, placeholder, isTextarea = false, rightElement }) => (
   <div style={{ marginBottom: '16px' }}>
@@ -66,6 +67,26 @@ const Step6Location = () => {
   const addTransportation = useBuilderStore(state => state.addTransportation);
   const removeTransportation = useBuilderStore(state => state.removeTransportation);
 
+  const [showPostcode, setShowPostcode] = useState(false);
+
+  const handleCompletePostcode = (data) => {
+    let fullAddress = data.address;
+    let extraAddress = '';
+
+    if (data.addressType === 'R') {
+      if (data.bname !== '') {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== '') {
+        extraAddress += extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+    }
+
+    setLocationInfo('address', fullAddress);
+    setShowPostcode(false);
+  };
+
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -108,7 +129,7 @@ const Step6Location = () => {
               cursor: 'pointer', fontFamily: 'inherit'
             }}
           >
-            구글맵 (DYNAMIC)
+            카카오맵 (DYNAMIC)
           </button>
         </div>
       </div>
@@ -137,7 +158,7 @@ const Step6Location = () => {
         ) : (
           <div style={{ marginBottom: '8px' }}>
             <div style={{ fontSize: '0.85rem', color: '#666', marginBottom: '16px', textAlign: 'center', lineHeight: '1.5' }}>
-              <strong>구글맵 연동 안내</strong><br/>
+              <strong>카카오맵 연동 안내</strong><br/>
               입력된 위치가 자동으로 표시됩니다.<br/>
               * 정확한 위치 표시를 위해 상세 주소를 입력해주세요.
             </div>
@@ -151,14 +172,34 @@ const Step6Location = () => {
               icon={MapPin} label="상세 주소" value={locationInfo.address} 
               onChange={(e) => setLocationInfo('address', e.target.value)} placeholder="도로명 주소 입력" 
               rightElement={
-                <button onClick={() => alert('실제 배포 버전에서는 다음 우편번호 검색 API가 팝업됩니다.')} style={{ 
+                <button onClick={() => setShowPostcode(true)} style={{ 
                   padding: '4px 10px', fontSize: '0.75rem', backgroundColor: '#fff', border: '1px solid #ccc', borderRadius: '4px', cursor: 'pointer', fontFamily: 'inherit', fontWeight: 'bold' 
                 }}>주소 검색</button>
               }
             />
 
+            {showPostcode && (
+              <div style={{ 
+                position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', 
+                backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 99999, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px'
+              }}>
+                <div style={{ width: '100%', maxWidth: '400px', backgroundColor: '#fff', borderRadius: '8px', overflow: 'hidden' }}>
+                  <div style={{ padding: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f5f5f5', borderBottom: '1px solid #ddd' }}>
+                    <div style={{ fontWeight: 'bold', fontSize: '0.9rem' }}>주소 검색</div>
+                    <button onClick={() => setShowPostcode(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                      <X size={20} />
+                    </button>
+                  </div>
+                  <DaumPostcode 
+                    onComplete={handleCompletePostcode}
+                    style={{ width: '100%', height: '400px' }}
+                  />
+                </div>
+              </div>
+            )}
+
             <button
-              onClick={() => alert('핀 위치를 마우스로 직접 끌어서(드래그) 조정하려면 구글/카카오 지도 API 키 연동이 필수입니다.\n현재 버전에서는 입력하신 주소를 바탕으로 한 자동 검색 핀만 지원됩니다.')}
+              onClick={() => alert('핀 위치를 마우스로 직접 끌어서(드래그) 조정하려면 카카오 지도 API 세부 설정이 필요합니다.\n현재 버전에서는 입력하신 주소를 바탕으로 한 자동 검색 핀만 지원됩니다.')}
               style={{
                 width: '100%', padding: '12px', marginBottom: '16px', backgroundColor: '#fff', border: '1px solid #ddd', borderRadius: '6px',
                 fontSize: '0.85rem', fontWeight: 'bold', color: '#555', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px'
