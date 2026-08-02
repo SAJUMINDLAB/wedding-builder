@@ -65,17 +65,7 @@ const InvitationPreview = () => {
   const [isPlaying, setIsPlaying] = React.useState(bgmInfo.autoPlay);
   const audioRef = React.useRef(null);
 
-  // 시네마틱 인트로 상태
-  const [showIntro, setShowIntro] = React.useState(optionInfo.cinematicIntro);
-  const [fadeIntro, setFadeIntro] = React.useState(false);
-
-  React.useEffect(() => {
-    if (optionInfo.cinematicIntro) {
-      const timer1 = setTimeout(() => setFadeIntro(true), 3500); // 3.5초 후 페이드아웃 시작 (기존 2.5초에서 연장)
-      const timer2 = setTimeout(() => setShowIntro(false), 4500); // 4.5초 후 DOM에서 제거 (기존 3.5초에서 연장)
-      return () => { clearTimeout(timer1); clearTimeout(timer2); };
-    }
-  }, [optionInfo.cinematicIntro]);
+  // 시네마틱 인트로 상태는 삭제됨
 
   const audioTracks = {
     'track1': 'https://www.mfiles.co.uk/mp3-downloads/pachelbel-canon-in-d.mp3',
@@ -159,28 +149,7 @@ const InvitationPreview = () => {
       fontFamily: `'${selectedFont}', sans-serif`
     }}>
       
-      {/* 4. Cinematic Intro */}
-      {showIntro && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, width: '100%', height: '100dvh',
-          backgroundColor: theme.id === 'midnight-orange' ? '#1A1817' : '#ffffff',
-          zIndex: 99999,
-          display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
-          opacity: fadeIntro ? 0 : 1,
-          transition: 'opacity 1s ease-in-out',
-          pointerEvents: 'none'
-        }}>
-          <div style={{ fontFamily: 'var(--font-en-serif)', fontSize: '1.2rem', letterSpacing: '0.3em', marginBottom: '20px', color: theme.accent, animation: 'fadeInUp 1s ease-out' }}>
-            WEDDING INVITATION
-          </div>
-          <div style={{ fontFamily: 'var(--font-kr-serif)', fontSize: '1.5rem', color: theme.text, animation: 'fadeInUp 1s ease-out 0.3s backwards' }}>
-            {mainInfo.groomNameKo} & {mainInfo.brideNameKo}
-          </div>
-          <style>{`
-            @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-          `}</style>
-        </div>
-      )}
+      {/* 4. Cinematic Intro - Removed per user request */}
       
       {/* 3. Film Grain Effect */}
       {optionInfo.texture && <div className="film-grain" />}

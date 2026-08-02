@@ -48,8 +48,8 @@ const EditorPanel = () => {
     <div className="editor-section">
       <div className="editor-header" style={{ paddingBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <h1>Invitation Editor</h1>
-          <p style={{ color: '#888', fontSize: '0.9rem', marginTop: '4px' }}>청첩장 수정하기</p>
+          <h1>Wedding Invitation Editor</h1>
+          <p style={{ color: '#888', fontSize: '0.9rem', marginTop: '4px' }}>나만의 청첩장 꾸미기</p>
         </div>
       </div>
 

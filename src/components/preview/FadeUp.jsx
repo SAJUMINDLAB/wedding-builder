@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 
-const FadeUp = ({ children, active }) => {
+const FadeUp = ({ children, active, delay = '0s' }) => {
   const [isVisible, setIsVisible] = useState(!active);
   const domRef = useRef();
 
@@ -34,7 +34,7 @@ const FadeUp = ({ children, active }) => {
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
-        transition: 'opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1)',
+        transition: `opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1) ${delay}, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1) ${delay}`,
         willChange: 'opacity, transform'
       }}
     >

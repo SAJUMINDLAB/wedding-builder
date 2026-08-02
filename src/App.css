@@ -87,8 +87,8 @@ body {
 }
 
 .mobile-mockup {
-  width: 375px;
-  height: 812px; /* iPhone 13/14 Pro size */
+  width: 414px;
+  height: 896px; /* iPhone Pro Max size for larger preview */
   background-color: #333; /* Set to match border to prevent white anti-aliasing fringe on corners */
   border-radius: 40px;
   border: 12px solid #333;
